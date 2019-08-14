@@ -22,6 +22,10 @@ public:
 	}
 };
 
+
+// add edges in any order in E[], then call set();
+// after set(), E[ V[i].p -> V[i].r] are edges corresponding to vertice i;
+// V[i].p and V[i].r are start and end index of edges in E[], correspoding to vertice i;
 class Graph
 {
 public:
@@ -29,6 +33,7 @@ public:
 	edge E[esize];
 	int n, m;
 
+	// call after all edges are added
 	void set()
 	{
 		sort(E, E+m);
@@ -46,7 +51,8 @@ public:
 			}
 		}
 	}
-
+	
+	// return index of edge e in graph
 	int ingraph(edge e)
 	{
 		int p = V[e.u].p;
@@ -63,7 +69,7 @@ public:
 
 		return i;
 	}
-
+	// addedge another egde, set() need to be called manually
 	void addedge(int u,int v)
 	{
 		E[m].u = u;E[m].v = v;
