@@ -1,5 +1,5 @@
 
-
+// euclid algorithm for finding gcd
 int64_t gcd(int64_t a, int64_t b)
 {
 	int64_t c;
@@ -24,6 +24,7 @@ class exeuclid
 	}
 };
 
+// extended-euclid algorithm for solving ax+by = gcd(a,b);
 exeuclid extendedeuclid(int64_t a, int64_t b)
 {
 	if(b == 0)
@@ -38,6 +39,7 @@ exeuclid extendedeuclid(int64_t a, int64_t b)
 	}
 }
 
+// for sovling ax = b mod n
 void modularlinearprogram(int64_t a, int64_t b, int64_t n)
 {
 	exeuclid val = extendedeuclid(a ,n);
@@ -52,7 +54,8 @@ void modularlinearprogram(int64_t a, int64_t b, int64_t n)
 	else{cout << "no solution\n";}
 }
 
-int64_t sam(int64_t, base,int64_t exp, int64_t mod)
+// square and multiply methode for finding (base^exp)%mod
+int64_t sam(int64_t base,int64_t exp, int64_t mod)
 {
 	int64_t val = 1;
 	for(int i = 63; i>=0; i--)
@@ -69,27 +72,30 @@ int64_t sam(int64_t, base,int64_t exp, int64_t mod)
 }
 
 
-
+// RSA cryptography.
 class RSA
 {
 	public:
+	// prime no
 	int64_t p;
+	// prime no
 	int64_t q;
 	int64_t n;
+	// prime no co-prime with phin
 	int64_t e;
 	int64_t d;
+	// eular phi value of n;
 	int64_t phin;
 
 	void set(int64_t pt,int64_t qt,int64_t et)
 	{
-		if(gcd(p,q) > 1){cout << "not coprime\n";}
-
 		p = pt; 
 		q = qt;
 		e = et;
 		n = p*q;
 		phin = (p-1)*(q-1);
-
+	
+		if(gcd(phin, e) > 1){cout << "e not coprime\n";}
 		d = sam(e, phin-1, n);
 	}
 
@@ -103,18 +109,18 @@ class RSA
 	{
 		return sam(y, d, n);
 	}
-}
+};
 
 
 
 
 
-
+// algorithm for factorization
 void polardrho(int64_t n)
 {
 	int i = 1;
 	int64_t xi = random(0, n-1);
-	int64_t y = x1;
+	int64_t y = xi;
 	int k = 2;
 
 	int64_t xj;
@@ -123,7 +129,7 @@ void polardrho(int64_t n)
 	{
 		i++;
 		xj = ((xi*xi)-1)%n;
-		d = gcd(y-xj, n, n);
+		d = gcd(y-xj, n);
 		if (d != 1 && d != n)
 		{
 			cout << n << "\n";
@@ -136,6 +142,7 @@ void polardrho(int64_t n)
 	}
 }
 
+// primality test algorithm
 bool pseudoprime(int64_t n)
 {
 	if(sam(2, n-1, n) != 1%n)
@@ -145,7 +152,7 @@ bool pseudoprime(int64_t n)
 	return ture;
 }
 
-
+// witness test algorithm used by miller-rabin
 bool witness(int64_t a,int64_t n)
 {
 	int64_t t, u, v;
@@ -170,6 +177,7 @@ bool witness(int64_t a,int64_t n)
 	return false;
 }
 
+// miller-rabin algorithm for primality test
 bool millerrabin(int64_t n,int64_t s)
 {
 	for(int j = 1; j <= s; j++)
