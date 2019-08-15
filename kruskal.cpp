@@ -6,13 +6,13 @@
 
 const int esize = 100; // size of edges in tree
 // less function for sorting edges
-template<class type> bool wsort(edge<type> e1,edge<type> e2)
+template<class type> bool wsort(edge e1,edge e2)
 {
 	return e1.w < e2.w;
 }
 
 
-edge<type> edgelist[esize];
+edge edgelist[esize];
 // run kruskal algorithm for min-spanning tree;
 template<class type> int kruskal()
 {
@@ -21,6 +21,7 @@ template<class type> int kruskal()
 
 	// len of edgelist
 	int c = 0;
+	// connect vertices in graph, untill whole graph is connected.
 	for(int i = 0;i < graph.m;i++)
 	{
 		// if ith edge's vertices are not in same group, add to tree.
