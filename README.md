@@ -9,4 +9,5 @@ necessary algorithms and data-structures implemented as classes or functions
 3) some data instance are of type "type". change them to the type you want to use;
 4) some files require some functions to be defined by functionality required given in comments.
    these functionalities are type-dependent, hence need to be defined by user;
-   
+5) some datastructure use nulv for null value.
+    change - const type nulv; accordingly.
