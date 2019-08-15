@@ -10,13 +10,14 @@ const int neginf = -1000000;
 xy points[psize];
 
 
-// class for line end-points;
+// class for line end-points; pi- index of point, ty- first/last end-point;
 class fst
 {
 	public:
 	int pi;
 	int ty;
 };
+// less function for fst, according to (y, x);
 bool operator<(const fst arg1, const fst arg2)
 {
 	return points[arg1.pi].y < points[arg2.pi].y || (points[arg1.pi].y == points[arg2.pi].y && points[arg1.pi].x < points[arg2.pi].x);
@@ -38,6 +39,7 @@ set<fst> s;
 // line-sweep algorithm for deciding line intersection
 bool func(int n)
 {
+	// sort line endpoints by (x, ty, y);
 	sort(lines, lines+n, sortlines);
 	int found = 0;
 	for(int i = 0;i < n;i++)
