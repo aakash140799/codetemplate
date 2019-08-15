@@ -18,7 +18,7 @@ class exeuclid
 {
 	public:
 	int d, x, y;
-	exeuclid(int dt,int xy,int yt)
+	exeuclid(int dt,int xt,int yt)
 	{
 		d = dt; x = xt; y = yt;
 	}
@@ -27,14 +27,15 @@ class exeuclid
 // extended-euclid algorithm for solving ax+by = gcd(a,b);
 exeuclid extendedeuclid(int64_t a, int64_t b)
 {
+	// if base case
 	if(b == 0)
 	{
-		return exeuclid(a, 1, 0);
+		return exeuclid(a, 1, 0);	// return a = a*1 + b*0
 	}
 	else
 	{
 		exeuclid val(0,0,0);
-		val = extendedeuclid(b, a%b);
+		val = extendedeuclid(b, a%b);	// val.d = val.x*b + val.y * a%b   or a = q*b + a%b
 		return exeuclid(val.d, val.y, val.x - (a/b)*val.y);
 	}
 }
@@ -65,7 +66,6 @@ int64_t sam(int64_t base,int64_t exp, int64_t mod)
 		{
 			val = (val*base)%mod;
 		}
-		val 
 	}
 
 	return val;
@@ -149,7 +149,7 @@ bool pseudoprime(int64_t n)
 	{
 		return false;
 	}
-	return ture;
+	return true;
 }
 
 // witness test algorithm used by miller-rabin
