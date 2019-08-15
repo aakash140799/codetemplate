@@ -6,7 +6,7 @@ const int64_t  posinf = 1000000000;
 
 
 // edge relaxation using matrix multiplication
-void extendedshortestpaths(int64_t a[vsize][vsize],int64_t b[vsize][vsize],int64_t c[vsize][vsize],int n)
+void extendedshortestpaths(int64_t a[vsize][vsize],  int64_t b[vsize][vsize],  int64_t c[vsize][vsize],int n)
 {
 	for(int i = 0;i < n;i++)
 	{
@@ -22,6 +22,8 @@ void extendedshortestpaths(int64_t a[vsize][vsize],int64_t b[vsize][vsize],int64
 }
 
 int64_t w[vsize][vsize], l[vsize][vsize], t[vsize][vsize];
+// w[u][v] = weight of edge(u,v) if (u,v) exists, else posinf;
+// l[u][v] = shortest path distance between (u,v) if exists, else posinf.
 void allpairshortestpath(int n)
 {
 	// l is initialized to w, so that l = w0
