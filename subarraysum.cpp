@@ -63,7 +63,7 @@ template<class type> prv<type> subarraysum(type *arr,int p,int r)
 		int q = (p+r)/2;
 		prv<type> sum1 = subarraysum(arr, p, q);	// left-side sum
 		prv<type> sum2 = subarraysum(arr, q, r);	// right-side sum
-		prv<type> sum3 = crossingsum(arr, p, q);	// crossing sum
+		prv<type> sum3 = crossingsum(arr, p, r);	// crossing sum
 
 		if(sum1.v > sum2.v && sum1.v > sum3.v){return sum1;}
 		else if(sum2.v > sum1.v && sum2.v > sum3.v){return sum2;}
