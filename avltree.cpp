@@ -2,48 +2,53 @@
 
 
 const type nulv;
-template<class type> class vertice
-{
-	public:
-	vertice<type> *l;
-	vertice<type> *r;
-	vertice<type> *p;
-	type v;
 
-	int ln;
-	int rn;
-	vertice<type>(){l = 0;r = 0;p = 0;ln = 0;rn = 0;}
-};
 
 template<class type> class tree
 {
 	public:
-	vertice<type> *root;
+	// one vertice of tree
+	class vertice
+	{
+	public:
+	vertice *l;
+	vertice *r;
+	vertice *p;
+	type v;
+
+	int ln;
+	int rn;
+	vertice(){l = 0;r = 0;p = 0;ln = 0;rn = 0;}
+	};
+
+
+	
+	vertice *root;
 
 	tree(){root = 0;}
 
-	// add a new vertice<type> with value v, as child of vertice<type> i
-	void add(vertice<type> *i,type v)
+	// add a new vertice with value v, as child of vertice i
+	void add(vertice *i,type v)
 	{
-		// create new vertice<type>;
-		vertice<type> *t = new vertice<type>;
+		// create new vertice;
+		vertice *t = new vertice;
 		t->v = v; t->p = i;
 
-		// set new vertice<type> as child of i; 
+		// set new vertice as child of i; 
 		if(v < i->v){i->l = t; i->ln = 1;}
 		else if (v > i->v){i->r = t; i->rn = 1;}
 	}
 
 
-	// place vertice<type> j at position of i. j is always 0 or 1 childed.
-	void replace(vertice<type> *i,vertice<type> *j)
+	// place vertice j at position of i. j is always 0 or 1 childed.
+	void replace(vertice *i,vertice *j)
 	{
 
 
 		// removes j by placing its child, at its position
 		if(j != 0)
 		{
-			vertice<type> *jc = 0;
+			vertice *jc = 0;
 			if(j->l != 0){jc = j->l;}
 			else{jc = j->r;}
 
@@ -71,24 +76,24 @@ template<class type> class tree
 	}
 
 	// returns true if i is a leftchild;
-	bool leftchild(vertice<type> *i)
+	bool leftchild(vertice *i)
 	{
 		if(i->p != 0 && i->p->l == i){return true;}
 		return false;
 	}
 
 	// returns true if i ia a rightchild;
-	bool rightchild(vertice<type> *i)
+	bool rightchild(vertice *i)
 	{
 		if(i->p != 0 && i->p->r == i){return true;}
 		return false;
 	}
 
-	// rotate vertice<type> i to left
-	vertice<type> *leftrotate(vertice<type> *i)
+	// rotate vertice i to left
+	vertice *leftrotate(vertice *i)
 	{
 		// store i, i's right, i's parent;
-		vertice<type> *ip, *ir, *irl;
+		vertice *ip, *ir, *irl;
 		ip = i->p;
 		ir = i->r;
 		irl = i->r->l;
@@ -113,11 +118,11 @@ template<class type> class tree
 		if(root == i){root = ir;}
 		return ir;
 	}
-	// rotate vertice<type> i to right
-	vertice<type> *rightrotate(vertice<type> *i)
+	// rotate vertice i to right
+	vertice *rightrotate(vertice *i)
 	{
 		// store i, i's left-child, i's parent
-		vertice<type> *ip, *il, *ilr;
+		vertice *ip, *il, *ilr;
 		ip = i->p;
 		il = i->l;
 		ilr = i->l->r;
@@ -145,7 +150,7 @@ template<class type> class tree
 		return il;
 	}
 	// starts from i, goes to root, perform rotate when required;
-	void balance(vertice<type> *i)
+	void balance(vertice *i)
 	{
 		// while i is not above root(i's parent is 0)
 		while(i != 0)
@@ -165,12 +170,12 @@ template<class type> class tree
 	void push(type v)
 	{
 		// if tree is empty, insert v into root
-		if(root == 0){root = new vertice<type>;root->v = v;}
+		if(root == 0){root = new vertice;root->v = v;}
 		else
 		{
-			vertice<type> *i = root;
+			vertice *i = root;
 
-			// search for appropriate vertice<type> to insert v, add v when found
+			// search for appropriate vertice to insert v, add v when found
 			while(true)
 			{
 				if(v < i->v && i->l != 0){i = i->l;}
@@ -180,18 +185,18 @@ template<class type> class tree
 				else{break;}
 			}
 
-			// call balance on inserted vertice<type>, which has value v.
+			// call balance on inserted vertice, which has value v.
 			balance(i);
 		}
 	}
-	// search for vertice<type> with value v;
-	vertice<type> *search(type v)
+	// search for vertice with value v;
+	vertice *search(type v)
 	{
-		vertice<type> *i = root;
+		vertice *i = root;
 		// if tree is empty, return 0;
 		if(i == 0){return 0;}
 
-		// search for appropriate vertice<type> with value v, set to 0 if not found
+		// search for appropriate vertice with value v, set to 0 if not found
 		while(true)
 		{
 			if(v == i->v){break;}
@@ -202,16 +207,16 @@ template<class type> class tree
 
 		return i;
 	}
-	// search for predecessor, given a vertice<type>
-	vertice<type> *predecessor(vertice<type> *i)
+	// search for predecessor, given a vertice
+	vertice *predecessor(vertice *i)
 	{
-		// if any vertice<type>s with smaller-values exists on left-side
+		// if any vertices with smaller-values exists on left-side
 		if(i->l != 0)
 		{
 			i = i->l;
 			while(i->r != 0){i = i->r;}
 		}
-		// if any vertice<type> with smaller-values exists on above vertice<type> i
+		// if any vertice with smaller-values exists on above vertice i
 		else if(i->p != 0)
 		{
 			while(leftchild(i)){i = i->p;}
@@ -223,8 +228,8 @@ template<class type> class tree
 
 		return i;
 	}
-	// search for successor, given a vertice<type>
-	vertice<type> *successor(vertice<type> *i)
+	// search for successor, given a vertice
+	vertice *successor(vertice *i)
 	{
 		// if any larger value exists on right-side
 		if(i->r != 0)
@@ -232,7 +237,7 @@ template<class type> class tree
 			i = i->r;
 			while(i->l != 0){i = i->l;}
 		}
-		// if any larger value exist above vertice<type> i;
+		// if any larger value exist above vertice i;
 		else if(i->p != 0)
 		{
 			while(rightchild(i)){i = i->p;}
@@ -244,15 +249,15 @@ template<class type> class tree
 
 		return i;
 	}
-	// erases vertice<type> with value v;
+	// erases vertice with value v;
 	void erase(type v)
 	{
-		// search for vertice<type> with value v;
-		vertice<type> *i = search(v);
+		// search for vertice with value v;
+		vertice *i = search(v);
 		if(i == 0){return;}
 
 		// put one child of i in c;
-		vertice<type> *c = 0;
+		vertice *c = 0;
 		if(i->l != 0){c = i->l;}
 		else{c = i->r;}
 
@@ -270,7 +275,7 @@ template<class type> class tree
 		else
 		{
 			// find predecessor , and replace with it;
-			vertice<type> *pre = predecessor(i);
+			vertice *pre = predecessor(i);
 			replace(i,pre);
 			if(root == i){root = pre;}
 			delete i;
@@ -280,10 +285,10 @@ template<class type> class tree
 	type lowerbound(type v)
 	{
 
-		vertice<type> *i = root;
+		vertice *i = root;
 		if(i == 0){return nulv;}
 
-		// search for appropriate vertice<type>
+		// search for appropriate vertice
 		while(true)
 		{
 			if(v == i->v){break;}
@@ -305,10 +310,10 @@ template<class type> class tree
 	// returns value equal to or less than v, if none return nulv;
 	type upperbound(type v)
 	{
-		vertice<type> *i = root;
+		vertice *i = root;
 		if(i == 0){return nulv;}
 
-		// search for appropriate vertice<type>
+		// search for appropriate vertice
 		while(true)
 		{
 			if(v == i->v){break;}
