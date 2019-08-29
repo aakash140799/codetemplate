@@ -4,31 +4,34 @@
 
 const int vsize = 100;
 const int esize = 100;
-class vertice
+
+
+// add edges in any order in E[], then call set();
+// after set(), E[ V[i].p -> V[i].r] are edges corresponding to vertice i;
+// V[i].p and V[i].r are start and end index of edges in E[], correspoding to vertice i;
+// n = number of vertices V[1-n], m = total number of edges E[0-m);
+class Graph
 {
 public:
+	class vertice
+	{
+	public:
 	int p;
 	int r;
-};
-
-class edge
-{
-public:
+	};
+	
+	class edge
+	{
+	public:
 	int u;
 	int v;
 	bool operator<(edge arg)
 	{
 		return u < arg.u || (u == arg.u && v < arg.v);
 	}
-};
-
-
-// add edges in any order in E[], then call set();
-// after set(), E[ V[i].p -> V[i].r] are edges corresponding to vertice i;
-// V[i].p and V[i].r are start and end index of edges in E[], correspoding to vertice i;
-class Graph
-{
-public:
+	};
+	
+	
 	vertice V[vsize];
 	edge E[esize];
 	int n, m;
