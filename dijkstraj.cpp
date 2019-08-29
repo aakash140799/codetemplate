@@ -36,7 +36,7 @@ void dijkstra(int src)
 		// relax all vertices neighbour to top;
 		for(int i = graph.V[top].p;i < graph.V[top].r;i++)
 		{
-			edge e = graph.E[i];
+			Graph::edge e = graph.E[i];
 			if(graph.V[e.v].d > graph.V[top].d+e.w)
 			{
 				graph.V[e.v].d = graph.V[top].d+e.w;
