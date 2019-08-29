@@ -3,20 +3,21 @@
 
 
 const int arrsize = 100;
-template<class type> class vertice
-{
-	public:
-	vertice<type> *n;
-	type v;
-};
-
-
 const type nulv;
 template<class type> class queue
 {
 	public:
-	vertice<type> head;
-	vertice<type> *last;
+
+	class vertice
+	{
+	public:
+	vertice *n;
+	type v;
+	};
+
+
+	vertice head;
+	vertice *last;
 
 	queue()
 	{
@@ -25,7 +26,7 @@ template<class type> class queue
 	}
 	void push(type v)
 	{
-		vertice<type> *t = new vertice<type>;
+		vertice *t = new vertice;
 		t->v = v;
 
 		t->n = 0;
@@ -43,7 +44,7 @@ template<class type> class queue
 	{
 		if(head.n != 0)
 		{
-			vertice<type> *t = head.n;
+			vertice *t = head.n;
 			head.n = head.n->n;
 
 			if(last == t){last = &head;}
