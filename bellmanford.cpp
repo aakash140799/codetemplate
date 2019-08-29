@@ -1,7 +1,7 @@
 
 
 
-// define graph//
+// define graph //
 // define d in vertice, w in edges//
 
 
@@ -24,7 +24,7 @@ void bellmanford(int src)
 		// relax each edge in the graph
 		for(int j = 0;j < graph.m;j++)
 		{
-			edge e = graph.E[j];
+			Graph::edge e = graph.E[j];
 			if(graph.V[e.v].d > graph.V[e.u].d+e.w)
 			{
 				graph.V[e.v].d = graph.V[e.u].d+e.w;
