@@ -2,26 +2,28 @@
 
 
 const type nulv = -1;
-template<class type> class vertice
+template<class type> class tree
 {
+	public:
+	// type for one vertice of tree
+	class vertice
+	{
 	public:
 	vertice *l;
 	vertice *r;
 	vertice *p;
 	type  v;
 	vertice(){l = 0;r = 0;p = 0;}
-};
+	};
 
-template<class type> class tree
-{
-	public:
-	vertice<type> *root;
+
+	vertice *root;
 
 	tree(){root = 0;}
 	// add a new vertice with value v, with i as parent
-	void add(vertice<type> *i,type v,int dir)
+	void add(vertice *i,type v,int dir)
 	{
-		vertice<type> *t = new vertice<type>;
+		vertice *t = new vertice;
 		t->v = v;
 
 		t->p = i;
@@ -30,12 +32,12 @@ template<class type> class tree
 	}
 
 	// replace i by j. j is always 0 or 1 childed.
-	void replace(vertice<type> *i,vertice<type> *j)
+	void replace(vertice *i,vertice *j)
 	{
 		// remove j, by replacing j by its child
 		if(j != 0)
 		{
-			vertice<type> *jc = 0;
+			vertice *jc = 0;
 			if(j->l != 0){jc = j->l;}
 			else{jc = j->r;}
 
@@ -61,14 +63,14 @@ template<class type> class tree
 
 	}
 	// return true if i is left child;
-	bool leftchild(vertice<type> *i)
+	bool leftchild(vertice *i)
 	{
 		if(i->p == 0){return false;}
 		else if(i->p->l == i){return true;}
 		return false;
 	}
 	// returns true if i is right child
-	bool rightchild(vertice<type> *i)
+	bool rightchild(vertice *i)
 	{
 		if(i->p == 0){return false;}
 		else if(i->p->r == i){return true;}
@@ -78,10 +80,10 @@ template<class type> class tree
 	void push(type v)
 	{
 		// if tree is empty, set root to value v;
-		if(root == 0){root = new vertice<type>;root->v = v;}
+		if(root == 0){root = new vertice;root->v = v;}
 		else
 		{
-			vertice<type> *i = root;
+			vertice *i = root;
 			// search for appropriate vertice to push new vertice, and add
 			while(true)
 			{
@@ -94,13 +96,13 @@ template<class type> class tree
 		}
 	}
 	// returns vertice with value v
-	vertice<type> *search(type v)
+	vertice *search(type v)
 	{
 		// if tree is empty, return 0
 		if(root == 0){return 0;}
 		else
 		{
-			vertice<type> *i = root;
+			vertice *i = root;
 			// search for vertice with value v, set i to 0 if not found
 			while(true)
 			{
@@ -114,7 +116,7 @@ template<class type> class tree
 		}
 	}
 	// return predecessor of vertice i;
-	vertice<type> *predecessor(vertice<type> *i)
+	vertice *predecessor(vertice *i)
 	{
 		// check if value lower than i's value exist below it;
 		if(i->l != 0)
@@ -134,7 +136,7 @@ template<class type> class tree
 		else{return 0;}
 	}
 	// returns successor of vertice i;
-	vertice<type> *successor(vertice<type> *i)
+	vertice *successor(vertice *i)
 	{
 		// check if larger values exists below i;
 		if(i->r != 0)
@@ -157,11 +159,11 @@ template<class type> class tree
 	void erase(type v)
 	{
 		// search for vertice with value v;
-		vertice<type> *i = search(v);
+		vertice *i = search(v);
 		if(i == 0){return;}
 
 		// set c to one of its child
-		vertice<type> *c = 0;
+		vertice *c = 0;
 		if(i->l != 0){c = i->l;}
 		else{c = i->r;}
 
@@ -178,7 +180,7 @@ template<class type> class tree
 		else
 		{
 			// relace i by its predecessor
-			vertice<type> *pre = predecessor(i);
+			vertice *pre = predecessor(i);
 			replace(i, pre);
 			if(root == i){root = pre;}
 		}
@@ -188,7 +190,7 @@ template<class type> class tree
 	type lowerbound(type v)
 	{
 		// returns nulv if tree is empty;
-		vertice<type> *i = root;
+		vertice *i = root;
 		if(i == 0){return nulv;}
 
 		// search for appropriate vertice with value v
@@ -214,7 +216,7 @@ template<class type> class tree
 	type upperbound(type v)
 	{
 		// if tree is empty, return nulv
-		vertice<type> *i = root;
+		vertice *i = root;
 		if(i == 0){return nulv;}
 
 		// search for appropriate vertice with value v
@@ -241,7 +243,6 @@ template<class type> class tree
 	{
 		vertice *i = root;
 		if(i == 0){return;}
-
 		// stack s//
 		cout << i->v << " ";
 		if(i->r != 0){s.push(i->r);}
@@ -250,7 +251,6 @@ template<class type> class tree
 		{
 			vertice *top = s.top();s.pop();
 			cout << top->v << " ";
-
 			if(top->r != 0){s.push(tpp->r);}
 			if(top->l != 0){s.push(top->l);}
 		}
@@ -259,17 +259,13 @@ template<class type> class tree
 	{
 		vertice *i = root;
 		if(i == 0){return;}
-
 		// stack s//
-
 		if(i->r != 0){s.push(i->r,0);}
 		s.push(i,1);
 		if(i->l != 0){s.push(i->l,0);}
-
 		while(s.size())
 		{
 			vertice *top,b = s.top();s.pop();
-
 			if(b == 0)
 			{
 				if(top->r != 0){s.push(top->r,0);}
