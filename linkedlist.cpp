@@ -2,20 +2,24 @@
 
 
 const int arrsize = 100;
-template<class type> class vertice
+template<class type> class linkedlist
 {
+	public:
+
+	// type of vertice in list
+	class vertice
+	{
 	public:
 	vertice *n;
 	vertice *p;
 	type v;
 	vertice(){n = p = 0;}
-};
+	};
 
-template<class type> class linkedlist
-{
-	public:
-	vertice<type> head;
-	vertice<type> end;
+
+	// head and end sentinels for list;
+	vertice head;
+	vertice end;
 
 
 	linkedlist()
@@ -23,10 +27,12 @@ template<class type> class linkedlist
 		head.n = &end;
 		end.p = &head;
 	}
+
+
 	// push at front
 	void pushf(type v)
 	{
-		vertice<type> *t = new vertice<type>;
+		vertice *t = new vertice;
 		t->v = v;
 
 		t->n = head.n;
@@ -34,10 +40,11 @@ template<class type> class linkedlist
 		head.n->p = t;
 		head.n = t;
 	}
+
 	// push at back
 	void pushb(type v)
 	{
-		vertice<type> *t = new vertice<type>;
+		vertice *t = new vertice;
 		t->v = v;
 
 		t->n = &end;
@@ -47,10 +54,10 @@ template<class type> class linkedlist
 	}
 
 	// pushes v at ith iterator. ith iterated value goes to i+1;
-	void push(vertice<type> *i, type v)
+	void push(vertice *i, type v)
 	{
 		if(i == &head){return;}
-		vertice<type> *t = new vertice<type>;
+		vertice *t = new vertice;
 		t->v = v;
 
 		t->n = i;
@@ -58,8 +65,9 @@ template<class type> class linkedlist
 		i->p->n = t;
 		i->p = t;
 	}
+
 	// erase ith iterator
-	void erase(vertice<type> *i)
+	void erase(vertice *i)
 	{
 		if(i == &head || i == &end){return;}
 
@@ -67,6 +75,7 @@ template<class type> class linkedlist
 		i->p->n = i->n;
 		delete i;
 	}
+
 	// pop vertice at front
 	void popf(){erase(head.n);}
 	// pop vertice at back
@@ -83,12 +92,19 @@ template<class type> class linkedlist
 template<class type> class linkedlistarray
 {
 public:
-	// prev vertice
+
+	// prev[i] = previous vertice of i
 	int p[arrsize];
-	// next vertice
+
+
+	// next[i] = next vertice of i
 	int n[arrsize];
-	// list of values
+
+
+	// v[i] = value at vertice i
 	type v[arrsize];
+
+
 	// no of vertices in list
 	int l;
 
@@ -98,7 +114,9 @@ public:
 		p[1] = 0;
 		l = 2;
 	}
-	// linkedlist remains same, but values at i1, and i2 are swaped.
+
+
+	// linkedlist ordering remains same, but values at i1, and i2 are swaped.
 	void exchange(int i1,int i2)
 	{
 		int i1n, i1p, i2n, i2p;
@@ -112,6 +130,8 @@ public:
 		swap(p[i1], p[i2]);
 		swap(v[i1], v[i2]);
 	}
+
+
 	// push value in front
 	void pushf(type vt)
 	{
@@ -122,6 +142,8 @@ public:
 		n[0] = l;
 		l++;
 	}
+	
+
 	// push value in end;
 	void pushb(type vt)
 	{
@@ -132,6 +154,8 @@ public:
 		p[1] = l;
 		l++;
 	}
+	
+
 	// push value at index i;
 	void push(int i,type vt)
 	{
@@ -142,6 +166,8 @@ public:
 		p[i] = l;
 		l++;
 	}
+	
+
 	// erase value at index i
 	void erase(int i)
 	{
@@ -153,6 +179,8 @@ public:
 			l--;
 		}
 	}
+	
+
 	// returns value in front
 	type front(){return v[n[0]];}
 	// returns value in end;
