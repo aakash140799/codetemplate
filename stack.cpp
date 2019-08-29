@@ -3,26 +3,28 @@
 
 
 const int arrsize = 100;
-template<class type> class vertice
-{
-	public:
-	vertice<type> *n;
-	type v;
-};
-
 const type nulv;
 template<class type> class stack
 {
 	public:
-	vertice<type> head;
+	// type of vertice in stack
+	class vertice
+	{
+	public:
+	vertice *n;
+	type v;
+	};
 
+
+	vertice head;
+	
 	stack()
 	{
 		head.n = 0;
 	}
 	void push(type v)
 	{
-		vertice<type> *t = new vertice<type>;
+		vertice *t = new vertice;
 		t->v = v;
 
 		t->n = head.n;
@@ -40,7 +42,7 @@ template<class type> class stack
 	{
 		if(head.n != 0)
 		{
-			vertice<type> *t = head.n;
+			vertice *t = head.n;
 			head.n = head.n->n;
 
 			delete t;
