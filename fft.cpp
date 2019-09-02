@@ -21,14 +21,14 @@ public:
 		imag += arg.imag;
 	}
 	// overload + operator
-	complexnum operator+(complexnum arg1,complexnum arg2)
+	friend complexnum operator+(complexnum arg1,complexnum arg2)
 	{
 		arg1.real += arg2.real;
 		arg1.imag += arg2.imag;
 		return arg1;
 	}
 	// overload - operator
-	complexnum operator-(complexnum arg1,complexnum arg2)
+	friend complexnum operator-(complexnum arg1,complexnum arg2)
 	{
 		arg1.real -= arg2.real;
 		arg1.imag -= arg2.imag;
