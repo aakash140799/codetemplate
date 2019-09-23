@@ -48,12 +48,31 @@ complexnum a[100], b[100];
 double pi = 22.0/7;
 
 // perform discrete fourier transform on a,return a[] with ai = summation(ai* W(i,n)), where W(i,n) is nth root of unity raise to power i;
+int reverse(int n,int lgn)
+{
+	int r = 0;
+	while(lgn>0)
+	{
+		r <<= 1;
+		if(n&1){b |= 1;}
+		n >>= 1;
+		
+		lgn--;
+	}
+	
+	return r;
+}
 void dft(complexnum *a,int sign,int n)
 {
+	int lgn = 0;
+	while((1<<lgn)<n){lgn++;}
+	
+	
 	// arrange a[] according to base case arrangement of recursion
 	for(int i = 1;i < n/2;i += 2)
 	{
-		swap(a[i],a[n/2+i-1]);
+		int r = reverse(i,lgn);
+		if(i < r){swap(a[i],a[r]);}
 	}
 
 
@@ -91,12 +110,14 @@ void dft(complexnum *a,int sign,int n)
 	}
 }
 
+	
 int fft(int n)
 {
 	// raise n to power of 2, then mul by 2;
 	int lgn = 1;
 	while((1<<lgn) < n){lgn++;}
 	lgn++;
+	
 	for(int i = n;i < (1<<lgn);i++)
 	{
 		a[i].set(0,0);
