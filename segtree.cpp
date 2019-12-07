@@ -2,7 +2,7 @@
 
 
 const int size = 100000;
-template<classname type> class seg
+template<typename type> class seg
 {
 	public:
 	type arr[size];
@@ -14,8 +14,21 @@ template<classname type> class seg
 	type (*updfunc)(type arg,int s,int e);
 	type (*megfunc)(type arg1,type arg2);
 
+	void setnull(int n)
+	{
+		s = 0;
+		e = 0;
+		len = 1;
+		while(len < n)
+		{
+			s = (s<<1)+1;
+			e = (e<<1)+2;
+			len <<= 1;
+		}
+		fill(arr, arr+e+1, nil);
+	}
 
-	void set(int n,type *tarr)
+	void setwitharr(int n,type *tarr)
 	{
 		s = 0;
 		e = 0;
