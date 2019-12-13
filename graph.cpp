@@ -56,7 +56,7 @@ public:
 	}
 	
 	// return index of edge e in graph
-	int ingraph(edge e)
+	int findedge(edge e)
 	{
 		int p = V[e.u].p;
 		int r = V[e.u].r;
@@ -71,6 +71,12 @@ public:
 		}
 
 		return i;
+	}
+
+	int findedger(edge e)
+	{
+		swap(e.u, e.v);
+		return findedge(e);
 	}
 	// addedge another egde, set() need to be called manually
 	void addedge(int u,int v)
