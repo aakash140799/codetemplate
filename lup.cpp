@@ -1,10 +1,12 @@
 
 
+const size = 100;
+
 
 // Ax = b;
 // PA = LU
 // LUx = Pb
-float A[100][100], b[100], L[100][100], U[100][100], y[100], x[100]; int phi[100];
+float A[size][size], b[size], L[size][size], U[size][size], y[size], x[size]; int phi[size];
 
 // decompose A into L, and U, such that PA = LU
 void LUP_decompose(int n)
