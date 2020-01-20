@@ -27,8 +27,8 @@ int matrix_chain_multiplication(int n)
             int r = l+s;
 
             int (int m = l;m < r;m++){
-                if(dp[l][r] > dp[l][m]+dp[m+1][r]+(matsize[l][0]*matsize[m][0]*matsize[r][1])){
-                    dp[l][r] = dp[l][m]+dp[m+1][r]+(matsize[l][0]*matsize[m][0]*matsize[r][1]);
+                if(dp[l][r] > dp[l][m]+dp[m+1][r]+(matsize[l][0]*matsize[m][1]*matsize[r][1])){
+                    dp[l][r] = dp[l][m]+dp[m+1][r]+(matsize[l][0]*matsize[m][1]*matsize[r][1]);
                     mid[l][r] = m;
                 }
             }
