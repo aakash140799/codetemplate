@@ -1,4 +1,2 @@
 # codetemplate
-necessary algorithms and data-structures implemented as classes or functions
-
-This was my first project, and still quiet messy. I have started a new project , which am trying to keep consistent. So please head over to [link](https://github.com/aakash140799/Algorithms) to see more cleaner library.
+The library contains all algorithms, you can find in the book "Introduction to Algorithms, 3rd edition". Comprises of 41 commits of algorihms ranging over heap, string, graph search, shortest path, network flow, number theory, parallel algorithms, algebra, Fourier Transform, graph matching.
